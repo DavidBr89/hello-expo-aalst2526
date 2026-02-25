@@ -1,7 +1,15 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import ParkingItem from "./ParkingItem";
+import { useNavigation } from "@react-navigation/native";
 
 interface ParkingResponse {
   total_count: number;
@@ -9,6 +17,7 @@ interface ParkingResponse {
 }
 
 const ParkingList = () => {
+  const navigation = useNavigation();
   const [parkings, setParkings] = useState<Parking[]>([]);
 
   useEffect(() => {
@@ -31,7 +40,17 @@ const ParkingList = () => {
     <View style={styles.container}>
       <FlatList
         data={parkings}
-        renderItem={ParkingItem}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("parkingDetails", { data: item });
+              }}
+              style={styles.parkingItem}>
+              <Text>{item.name}</Text>
+            </TouchableOpacity>
+          );
+        }}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -44,5 +63,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 5, // 5/6
     backgroundColor: "white",
+  },
+  parkingItem: {
+    padding: 8,
+    height: 500,
+    marginVertical: 16,
   },
 });

@@ -1,15 +1,28 @@
-import { ListRenderItem, StyleSheet, Text, View } from "react-native";
+import {
+  ListRenderItem,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { PropsWithChildren } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 // interface ParkingItemProps extends PropsWithChildren {
 //   parking: Parking;
 // }
 
 const ParkingItem: ListRenderItem<Parking> = ({ item, index, separators }) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.parkingItem}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("parkingDetails");
+      }}
+      style={styles.parkingItem}>
       <Text>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
