@@ -1,11 +1,7 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-
-interface Parking {
-  id: string;
-  name: string;
-}
+import ParkingItem from "./ParkingItem";
 
 interface ParkingResponse {
   total_count: number;
@@ -35,13 +31,7 @@ const ParkingList = () => {
     <View style={styles.container}>
       <FlatList
         data={parkings}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.parkingItem}>
-              <Text>{item.name}</Text>
-            </View>
-          );
-        }}
+        renderItem={ParkingItem}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -54,10 +44,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 5, // 5/6
     backgroundColor: "white",
-  },
-  parkingItem: {
-    padding: 8,
-    height: 500,
-    marginVertical: 16,
   },
 });
