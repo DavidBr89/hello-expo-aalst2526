@@ -10,7 +10,12 @@ const ParkingsStack = createStackNavigator<ParkingsStackParamsList>();
 
 const ParkingStackNavigator = () => {
   return (
-    <ParkingsStack.Navigator>
+    <ParkingsStack.Navigator
+      screenOptions={{
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: "#236506" },
+        // headerShown: false,
+      }}>
       <ParkingsStack.Screen
         options={{
           title: "Parkings",

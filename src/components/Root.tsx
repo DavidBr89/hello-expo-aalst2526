@@ -6,12 +6,13 @@ import App from "../../App";
 import "../../global.css";
 import { NavigationContainer } from "@react-navigation/native";
 import ParkingStackNavigator from "../navigators/ParkingStackNavigator";
+import ParkingsTabNavigator from "../navigators/ParkingsTabNavigator";
 
 const Root = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <ParkingStackNavigator />
+        <ParkingsTabNavigator />
       </NavigationContainer>
     </SafeAreaProvider>
   );
