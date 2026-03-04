@@ -13,6 +13,7 @@ export type ParkingsStackParamsList = {
 
 export type ParkingsTabParamsList = {
     parkings: undefined;
+    favorites: undefined;
     parkingsMap: undefined;
     parkingsSettings: undefined
 }

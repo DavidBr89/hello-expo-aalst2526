@@ -8,6 +8,7 @@ import ParkingList from "../components/ParkingList";
 import ParkingStackNavigator from "./ParkingStackNavigator";
 import Feather from "@expo/vector-icons/Feather";
 import ParkingsDrawerNavigator from "./ParkingsDrawerNavigator";
+import FavoritesScreen from "../screens/FavoritesScreen";
 
 const languages = {
   nl: {
@@ -53,6 +54,16 @@ const ParkingsTabNavigator = () => {
             title: languages["nl"].mapTitle,
             tabBarIcon: ({ color, size }) => (
               <Feather name="map" color={color} size={size} />
+            ),
+          }}
+        />
+        <ParkingsTab.Screen
+          name="favorites"
+          component={FavoritesScreen}
+          options={{
+            headerShown: true,
+            tabBarIcon: ({ size, color }) => (
+              <Feather size={size} color={color} name="star" />
             ),
           }}
         />

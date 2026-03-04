@@ -7,13 +7,18 @@ import "../../global.css";
 import { NavigationContainer } from "@react-navigation/native";
 import ParkingStackNavigator from "../navigators/ParkingStackNavigator";
 import ParkingsTabNavigator from "../navigators/ParkingsTabNavigator";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const Root = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <ParkingsTabNavigator />
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <ParkingsTabNavigator />
+        </NavigationContainer>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 };
