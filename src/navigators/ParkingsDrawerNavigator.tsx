@@ -9,9 +9,25 @@ const Drawer = createDrawerNavigator<ParkingsDrawerParamsList>();
 
 const ParkingsDrawerNavigator = () => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="about" component={AboutScreen} />
-      <Drawer.Screen name="settings" component={ParkingsSettingsScreen} />
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#236506" },
+        headerTintColor: "white",
+      }}>
+      <Drawer.Screen
+        name="settings"
+        options={{
+          title: "Instellingen",
+        }}
+        component={ParkingsSettingsScreen}
+      />
+      <Drawer.Screen
+        name="about"
+        options={{
+          title: "Over ons",
+        }}
+        component={AboutScreen}
+      />
     </Drawer.Navigator>
   );
 };

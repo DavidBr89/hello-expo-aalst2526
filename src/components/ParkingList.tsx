@@ -1,19 +1,9 @@
-import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Alert, FlatList, Text, View } from "react-native";
+import React from "react";
 import Axios from "axios";
 import ParkingItem from "./ParkingItem";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigation } from "@react-navigation/native";
+import { useQuery } from "@tanstack/react-query";
 
 interface ParkingResponse {
   total_count: number;
@@ -22,29 +12,6 @@ interface ParkingResponse {
 
 const ParkingList = () => {
   const navigation = useNavigation();
-  // const [parkings, setParkings] = useState<Parking[]>([]);
-
-  const isFocused = useIsFocused();
-
-  const navigate = useNavigation();
-
-  // useEffect(() => {
-  //   const fetchParkings = async () => {
-  //     try {
-  //       const response = await Axios.get<ParkingResponse>(
-  //         "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records",
-  //       );
-
-  //       setParkings(response.data.results);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   if (isFocused) {
-  //     fetchParkings();
-  //   }
-  // }, [isFocused]);
 
   const { data, isLoading, isError, error, refetch, dataUpdatedAt } = useQuery({
     queryKey: ["fetchParkings"],
@@ -53,15 +20,6 @@ const ParkingList = () => {
         "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records",
       ),
     refetchInterval: 5 * 60 * 1000,
-  });
-
-  const mutation = useMutation({
-    mutationKey: ["newParking"],
-    mutationFn: (data: Parking) =>
-      Axios.post<ParkingResponse>(
-        "https://data.stad.gent/api/explore/v2.1/catalog/datasets/bezetting-parkeergarages-real-time/records",
-        data,
-      ),
   });
 
   if (isLoading) {
@@ -84,56 +42,46 @@ const ParkingList = () => {
       {
         text: "In orde",
         onPress: () => {
-          // navigate.navigate("parkingsMap");
+          // no-op
         },
       },
     ]);
   }
 
+  const parkings = data?.data.results ?? [];
+
   return (
-    <View style={styles.container}>
-      <Text>{new Date(dataUpdatedAt).toLocaleTimeString()}</Text>
+    <View className="flex-1 bg-slate-50 px-4 pt-4">
+      <View className="mb-4 rounded-2xl bg-slate-900 px-4 py-4">
+        <Text className="text-xs uppercase tracking-wider text-slate-300">
+          Gent Parkeerinfo
+        </Text>
+        <Text className="mt-1 text-xl font-bold text-white">
+          Beschikbare parkings
+        </Text>
+        <Text className="mt-2 text-xs text-slate-300">
+          Laatste update: {new Date(dataUpdatedAt).toLocaleTimeString()}
+        </Text>
+      </View>
+
       <FlatList
-        data={data?.data.results}
+        data={parkings}
+        contentContainerClassName="pb-8"
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity
+            <ParkingItem
+              parking={item}
               onPress={() => {
                 navigation.navigate("parkingDetails", { data: item });
               }}
-              style={styles.parkingItem}>
-              <Text>{item.name}</Text>
-            </TouchableOpacity>
+            />
           );
         }}
         keyExtractor={(item) => item.id}
       />
-      <Button
-        title="Mutatie POST"
-        onPress={() => {
-          mutation.mutate(
-            { id: "newParking", name: "Campus Aalst" },
-            {
-              onError: (err) => {
-                Alert.alert("Fout", err.message);
-              },
-            },
-          );
-        }}></Button>
     </View>
   );
 };
 
 export default ParkingList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 5, // 5/6
-    backgroundColor: "white",
-  },
-  parkingItem: {
-    padding: 8,
-    height: 500,
-    marginVertical: 16,
-  },
-});
