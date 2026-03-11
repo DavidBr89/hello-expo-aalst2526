@@ -11,6 +11,7 @@ const ParkingsDrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
+        headerTitleStyle: { fontFamily: "Delius" },
         headerStyle: { backgroundColor: "#236506" },
         headerTintColor: "white",
       }}>

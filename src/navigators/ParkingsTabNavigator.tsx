@@ -27,6 +27,8 @@ const ParkingsTabNavigator = () => {
       screenOptions={{
         headerTintColor: "white",
         headerStyle: { backgroundColor: "#236506" },
+        headerTitleStyle: { fontFamily: "Delius" },
+        tabBarLabelStyle: { fontFamily: "Delius" },
         tabBarStyle: { backgroundColor: "#236506" },
         tabBarActiveTintColor: "#78350f",
         tabBarInactiveTintColor: "#ddd",
@@ -61,6 +63,7 @@ const ParkingsTabNavigator = () => {
           name="favorites"
           component={FavoritesScreen}
           options={{
+            title: "Favorieten",
             headerShown: true,
             tabBarIcon: ({ size, color }) => (
               <Feather size={size} color={color} name="star" />

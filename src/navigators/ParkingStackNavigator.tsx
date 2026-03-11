@@ -13,6 +13,7 @@ const ParkingStackNavigator = () => {
     <ParkingsStack.Navigator
       screenOptions={{
         headerTintColor: "white",
+        headerTitleStyle: { fontFamily: "Delius" },
         headerStyle: { backgroundColor: "#236506" },
         // headerShown: false,
       }}>
@@ -26,6 +27,9 @@ const ParkingStackNavigator = () => {
       <ParkingsStack.Screen
         name="parkingDetails"
         component={ParkingDetailScreen}
+        options={({ route }) => ({
+          title: route.params.data.name ?? "Details",
+        })}
       />
     </ParkingsStack.Navigator>
   );

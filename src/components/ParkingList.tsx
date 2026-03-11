@@ -4,6 +4,8 @@ import Axios from "axios";
 import ParkingItem from "./ParkingItem";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
+import BasicText from "./BasicText";
+import BasicView from "./BasicView";
 
 interface ParkingResponse {
   total_count: number;
@@ -51,17 +53,17 @@ const ParkingList = () => {
   const parkings = data?.data.results ?? [];
 
   return (
-    <View className="flex-1 bg-slate-50 px-4 pt-4">
+    <BasicView className="flex-1 bg-slate-50 px-4 pt-4">
       <View className="mb-4 rounded-2xl bg-slate-900 px-4 py-4">
-        <Text className="text-xs uppercase tracking-wider text-slate-300">
+        <BasicText className="text-xs uppercase tracking-wider text-slate-300">
           Gent Parkeerinfo
-        </Text>
-        <Text className="mt-1 text-xl font-bold text-white">
+        </BasicText>
+        <BasicText className="mt-1 text-xl font-bold text-white">
           Beschikbare parkings
-        </Text>
-        <Text className="mt-2 text-xs text-slate-300">
+        </BasicText>
+        <BasicText className="mt-2 text-xs text-slate-300">
           Laatste update: {new Date(dataUpdatedAt).toLocaleTimeString()}
-        </Text>
+        </BasicText>
       </View>
 
       <FlatList
@@ -80,7 +82,7 @@ const ParkingList = () => {
         }}
         keyExtractor={(item) => item.id}
       />
-    </View>
+    </BasicView>
   );
 };
 
