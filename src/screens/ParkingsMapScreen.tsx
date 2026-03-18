@@ -1,12 +1,34 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Axios from "axios";
 
 import MapView, { Marker } from "react-native-maps";
 import { useQuery } from "@tanstack/react-query";
+import {
+  useBackgroundPermissions,
+  useForegroundPermissions,
+} from "expo-location";
 
 const ParkingsMapScreen = () => {
+  const [foreGroundStatus, foreGroundRequestPermission] =
+    useForegroundPermissions();
+
+  const [backGroundStatus, backGroundRequestPermission] =
+    useBackgroundPermissions();
+
+  // useEffect(() => {
+  //   if (foreGroundStatus?.canAskAgain) {
+  //     foreGroundRequestPermission();
+  //   }
+  // }, [foreGroundStatus?.canAskAgain]);
+
+  useEffect(() => {
+    if (backGroundStatus?.canAskAgain) {
+      backGroundRequestPermission();
+    }
+  }, [backGroundStatus?.canAskAgain]);
+
   const { data, isLoading, isError, error, refetch, dataUpdatedAt } = useQuery({
     queryKey: ["fetchParkings"],
     queryFn: () =>

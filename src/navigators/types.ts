@@ -20,6 +20,7 @@ export type ParkingsTabParamsList = {
 
 export type ParkingsDrawerParamsList = {
     about: undefined;
+    camera: undefined;
     settings: undefined;
 }
 

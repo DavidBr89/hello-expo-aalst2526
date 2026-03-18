@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { ParkingsDrawerParamsList } from "./types";
 import ParkingsSettingsScreen from "../screens/ParkingsSettingsScreen";
 import AboutScreen from "../screens/AboutScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 const Drawer = createDrawerNavigator<ParkingsDrawerParamsList>();
 
@@ -21,6 +22,13 @@ const ParkingsDrawerNavigator = () => {
           title: "Instellingen",
         }}
         component={ParkingsSettingsScreen}
+      />
+      <Drawer.Screen
+        name="camera"
+        options={{
+          title: "Camera",
+        }}
+        component={CameraScreen}
       />
       <Drawer.Screen
         name="about"
