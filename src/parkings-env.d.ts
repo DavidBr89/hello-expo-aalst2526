@@ -23,3 +23,8 @@ interface Parking {
   categorie: string;
   dashboard: string;
 }
+
+interface ParkingResponse {
+  total_count: number;
+  results: Parking[];
+}

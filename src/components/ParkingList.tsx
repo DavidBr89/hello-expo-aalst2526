@@ -7,11 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import BasicText from "./BasicText";
 import BasicView from "./BasicView";
 
-interface ParkingResponse {
-  total_count: number;
-  results: Parking[];
-}
-
 const ParkingList = () => {
   const navigation = useNavigation();
 
