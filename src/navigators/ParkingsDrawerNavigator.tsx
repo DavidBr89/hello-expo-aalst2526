@@ -5,6 +5,8 @@ import { ParkingsDrawerParamsList } from "./types";
 import ParkingsSettingsScreen from "../screens/ParkingsSettingsScreen";
 import AboutScreen from "../screens/AboutScreen";
 import CameraScreen from "../screens/CameraScreen";
+import SensorsScreen from "../screens/SensorsScreen";
+import ImagesScreen from "../screens/ImagesScreen";
 
 const Drawer = createDrawerNavigator<ParkingsDrawerParamsList>();
 
@@ -30,6 +32,8 @@ const ParkingsDrawerNavigator = () => {
         }}
         component={CameraScreen}
       />
+      <Drawer.Screen name="sensors" component={SensorsScreen} />
+      <Drawer.Screen name="images" component={ImagesScreen} />
       <Drawer.Screen
         name="about"
         options={{
