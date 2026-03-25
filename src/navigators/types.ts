@@ -23,6 +23,7 @@ export type ParkingsDrawerParamsList = {
     camera: undefined;
     sensors: undefined;
     images: undefined;
+    counter: undefined;
     settings: undefined;
 }
 

@@ -10,6 +10,10 @@ import { useFonts } from "expo-font";
 
 import * as SplashScreen from "expo-splash-screen";
 
+import { Provider as ReduxProvider } from "react-redux";
+import { persistor, store } from "../store/store";
+import { PersistGate } from "redux-persist/integration/react";
+
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
@@ -31,13 +35,17 @@ const Root = () => {
 
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        <FavoritesProvider>
-          <NavigationContainer>
-            <ParkingsTabNavigator />
-          </NavigationContainer>
-        </FavoritesProvider>
-      </QueryClientProvider>
+      <ReduxProvider store={store}>
+        <PersistGate persistor={persistor}>
+          <QueryClientProvider client={queryClient}>
+            <FavoritesProvider>
+              <NavigationContainer>
+                <ParkingsTabNavigator />
+              </NavigationContainer>
+            </FavoritesProvider>
+          </QueryClientProvider>
+        </PersistGate>
+      </ReduxProvider>
     </SafeAreaProvider>
   );
 };

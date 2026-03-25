@@ -6,6 +6,8 @@ import ParkingItem from "../components/ParkingItem";
 const FavoritesScreen = () => {
   const { favorites } = useFavorites();
 
+  // TODO: Uit redux
+
   return (
     <View className="flex-1 bg-white p-4">
       <FlatList

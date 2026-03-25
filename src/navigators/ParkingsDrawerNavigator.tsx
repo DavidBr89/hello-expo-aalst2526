@@ -7,6 +7,7 @@ import AboutScreen from "../screens/AboutScreen";
 import CameraScreen from "../screens/CameraScreen";
 import SensorsScreen from "../screens/SensorsScreen";
 import ImagesScreen from "../screens/ImagesScreen";
+import CounterScreen from "../screens/CounterScreen";
 
 const Drawer = createDrawerNavigator<ParkingsDrawerParamsList>();
 
@@ -34,6 +35,7 @@ const ParkingsDrawerNavigator = () => {
       />
       <Drawer.Screen name="sensors" component={SensorsScreen} />
       <Drawer.Screen name="images" component={ImagesScreen} />
+      <Drawer.Screen name="counter" component={CounterScreen} />
       <Drawer.Screen
         name="about"
         options={{

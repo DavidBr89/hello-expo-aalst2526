@@ -52,6 +52,7 @@ const ParkingItem = ({ parking, onPress }: ParkingItemProps) => {
   const hasPlaces = parking.availablecapacity > 0;
 
   const { toggleFavorite, isInFavorites } = useFavorites();
+  // Dat dit van Redux komt
 
   return (
     <TouchableOpacity
