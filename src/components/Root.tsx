@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "../../global.css";
@@ -14,6 +14,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { persistor, store } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { useTanStackQueryDevTools } from "@rozenite/tanstack-query-plugin";
+import { useReactNavigationDevTools } from "@rozenite/react-navigation-plugin";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,10 @@ SplashScreen.preventAutoHideAsync();
 
 const Root = () => {
   useTanStackQueryDevTools(queryClient);
+
+  const navigationRef = useRef(null);
+
+  useReactNavigationDevTools({ ref: navigationRef });
 
   const [fontLoaded] = useFonts({
     Delius: require("../../assets/fonts/Delius.ttf"),
@@ -42,7 +47,7 @@ const Root = () => {
         <PersistGate persistor={persistor}>
           <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
-              <NavigationContainer>
+              <NavigationContainer ref={navigationRef}>
                 <ParkingsTabNavigator />
               </NavigationContainer>
             </FavoritesProvider>
