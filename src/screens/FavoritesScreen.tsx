@@ -1,12 +1,10 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { useFavorites } from "../hooks/useFavorites";
 import ParkingItem from "../components/ParkingItem";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const FavoritesScreen = () => {
-  const { favorites } = useFavorites();
-
-  // TODO: Uit redux
+  const favorites = useAppSelector((state) => state.favorites);
 
   return (
     <View className="flex-1 bg-white p-4">

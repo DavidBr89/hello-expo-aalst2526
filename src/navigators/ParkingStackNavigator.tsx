@@ -6,6 +6,11 @@ import ParkingList from "../components/ParkingList";
 import ParkingDetailScreen from "../screens/ParkingDetailScreen";
 import { ParkingsStackParamsList } from "./types";
 
+import MdIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native";
+import AddParkingScreen from "../screens/AddParkingScreen";
+// import { useNavigation } from "@react-navigation/native";
+
 const ParkingsStack = createStackNavigator<ParkingsStackParamsList>();
 
 const ParkingStackNavigator = () => {
@@ -18,9 +23,20 @@ const ParkingStackNavigator = () => {
         // headerShown: false,
       }}>
       <ParkingsStack.Screen
-        options={{
+        options={({ navigation }) => ({
           title: "Parkings",
-        }}
+          headerRight: ({ tintColor }) => {
+            return (
+              <TouchableOpacity
+                className="mr-4"
+                onPress={() => {
+                  navigation.navigate("addParking");
+                }}>
+                <MdIcons name="plus" color={tintColor} size={24} />
+              </TouchableOpacity>
+            );
+          },
+        })}
         name="parkingsList"
         component={ParkingList}
       />
@@ -31,6 +47,7 @@ const ParkingStackNavigator = () => {
           title: route.params.data.name ?? "Details",
         })}
       />
+      <ParkingsStack.Screen name="addParking" component={AddParkingScreen} />
     </ParkingsStack.Navigator>
   );
 };

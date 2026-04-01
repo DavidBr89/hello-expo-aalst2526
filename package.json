@@ -29,6 +29,7 @@
     "expo-sensors": "~15.0.8",
     "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
+    "formik": "^2.4.9",
     "nativewind": "^4.2.2",
     "react": "19.1.0",
     "react-native": "0.81.5",
@@ -42,7 +43,8 @@
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@rozenite/expo-atlas-plugin": "^1.6.0",

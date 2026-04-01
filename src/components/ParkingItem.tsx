@@ -4,6 +4,10 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFavorites } from "../hooks/useFavorites";
 import BasicText from "./BasicText";
 import BasicView from "./BasicView";
+import { toggle } from "../store/favorites/slice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { isInFavorites } from "../utils";
+import { useIsInFavorites } from "../hooks/useInFavorites";
 
 interface ParkingItemProps {
   parking: Parking;
@@ -51,8 +55,15 @@ const ParkingItem = ({ parking, onPress }: ParkingItemProps) => {
   const isFree = parking.freeparking === 1;
   const hasPlaces = parking.availablecapacity > 0;
 
-  const { toggleFavorite, isInFavorites } = useFavorites();
-  // Dat dit van Redux komt
+  // const { toggleFavorite, isInFavorites } = useFavorites();
+  // Aanpassingen doen in de store met dispatch
+  const dispatch = useAppDispatch();
+  // Uitlezen van mijn favorites state uit Redux
+  // const favorites = useAppSelector((state) => state.favorites);
+
+  // const isInFavorites = (parkingId: string) => {
+  //   return favorites.some((f) => f.id === parkingId);
+  // };
 
   return (
     <TouchableOpacity
@@ -81,10 +92,13 @@ const ParkingItem = ({ parking, onPress }: ParkingItemProps) => {
         <TouchableOpacity
           className="bg-green-700 p-2 rounded-full"
           onPress={() => {
-            toggleFavorite(parking);
+            // toggleFavorite methode komt uit de context
+            // toggleFavorite(parking);
+            // Redux manier - dispatchen van deze action { type: "favorites/toggle", payload: {...}}
+            dispatch(toggle(parking));
           }}>
           <MaterialCommunityIcons
-            name={`${isInFavorites(parking.id) ? "star" : "star-outline"}`}
+            name={`${useIsInFavorites(parking.id) ? "star" : "star-outline"}`}
             size={22}
             color="#ffcc01"
           />

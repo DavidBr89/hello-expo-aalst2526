@@ -8,7 +8,7 @@ export type ParkingsStackParamsList = {
     parkingDetails: {
         data: Parking
     };
-    
+    addParking: undefined;
 }
 
 export type ParkingsTabParamsList = {
