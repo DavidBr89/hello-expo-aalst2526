@@ -13,12 +13,15 @@ import * as SplashScreen from "expo-splash-screen";
 import { Provider as ReduxProvider } from "react-redux";
 import { persistor, store } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { useTanStackQueryDevTools } from "@rozenite/tanstack-query-plugin";
 
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
 
 const Root = () => {
+  useTanStackQueryDevTools(queryClient);
+
   const [fontLoaded] = useFonts({
     Delius: require("../../assets/fonts/Delius.ttf"),
   });

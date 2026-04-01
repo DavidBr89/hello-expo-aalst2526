@@ -4,6 +4,7 @@ import counterSlice from "./counter/slice";
 import favoritesSlice from "./favorites/slice";
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import {rozeniteDevToolsEnhancer} from "@rozenite/redux-devtools-plugin";
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
 
@@ -17,6 +18,7 @@ const persistedReducer = persistReducer({key: "parkings-state", storage: AsyncSt
 
 export const store = configureStore({
     reducer: persistedReducer,
+    enhancers: (getDefaultEnhancers) => getDefaultEnhancers().concat(rozeniteDevToolsEnhancer()),
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
             serializableCheck: {
