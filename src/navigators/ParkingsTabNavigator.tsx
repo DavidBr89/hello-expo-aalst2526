@@ -9,6 +9,7 @@ import ParkingStackNavigator from "./ParkingStackNavigator";
 import Feather from "@expo/vector-icons/Feather";
 import ParkingsDrawerNavigator from "./ParkingsDrawerNavigator";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 const languages = {
   nl: {
@@ -22,6 +23,8 @@ const languages = {
 const ParkingsTab = createBottomTabNavigator<ParkingsTabParamsList>();
 
 const ParkingsTabNavigator = () => {
+  const favorites = useAppSelector((state) => state.favorites);
+
   return (
     <ParkingsTab.Navigator
       screenOptions={{
@@ -68,6 +71,7 @@ const ParkingsTabNavigator = () => {
             tabBarIcon: ({ size, color }) => (
               <Feather size={size} color={color} name="star" />
             ),
+            tabBarBadge: favorites.length,
           }}
         />
         <ParkingsTab.Screen
