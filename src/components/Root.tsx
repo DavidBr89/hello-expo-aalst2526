@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "../../global.css";
@@ -16,12 +16,17 @@ import { PersistGate } from "redux-persist/integration/react";
 import { useTanStackQueryDevTools } from "@rozenite/tanstack-query-plugin";
 import { useReactNavigationDevTools } from "@rozenite/react-navigation-plugin";
 import AuthStackNavigator from "../navigators/AuthStackNavigator";
+import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "@firebase/auth";
 
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
 
 const Root = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
   useTanStackQueryDevTools(queryClient);
 
   const navigationRef = useRef(null);
@@ -33,12 +38,22 @@ const Root = () => {
   });
 
   useEffect(() => {
-    if (fontLoaded) {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(user !== null);
+      setIsAuthLoading(false);
+      console.log("USER onAuthStateChanged ", user);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (fontLoaded && !isAuthLoading) {
       SplashScreen.hideAsync();
     }
-  }, [fontLoaded]);
+  }, [fontLoaded, isAuthLoading]);
 
-  if (!fontLoaded) {
+  if (!fontLoaded && isAuthLoading) {
     return null;
   }
 
@@ -49,7 +64,7 @@ const Root = () => {
           <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
               <NavigationContainer ref={navigationRef}>
-                <AuthStackNavigator />
+                {isLoggedIn ? <ParkingsTabNavigator /> : <AuthStackNavigator />}
               </NavigationContainer>
             </FavoritesProvider>
           </QueryClientProvider>

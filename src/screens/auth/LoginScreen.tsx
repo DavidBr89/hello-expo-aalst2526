@@ -6,12 +6,14 @@ import {
   View,
 } from "react-native";
 import React, { useRef } from "react";
-import { useFormik } from "formik";
+import { replace, useFormik } from "formik";
 
 import * as Yup from "yup";
 import BasicText from "../../components/BasicText";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../config/firebase";
+import { useNavigation } from "@react-navigation/native";
+import { AuthStackNavProps } from "../../navigators/types";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -34,7 +36,7 @@ const LoginScreen = () => {
           values.password,
         );
 
-        console.log(user);
+        // console.log(user);
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +45,8 @@ const LoginScreen = () => {
   });
 
   const passwordRef = useRef<TextInput>(null);
+
+  const navigation = useNavigation<AuthStackNavProps<"login">["navigation"]>();
 
   return (
     <View className="flex-1 justify-center p-4 gap-4">
@@ -76,6 +80,13 @@ const LoginScreen = () => {
         ref={passwordRef}
       />
       {errors.password !== null && <BasicText>{errors.password}</BasicText>}
+      <TouchableOpacity
+        className="my-4"
+        onPress={() => {
+          navigation.replace("register");
+        }}>
+        <BasicText className="text-right text-sm">Nog geen account?</BasicText>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           handleSubmit();
