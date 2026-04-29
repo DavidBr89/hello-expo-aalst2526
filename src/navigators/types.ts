@@ -11,6 +11,11 @@ export type ParkingsStackParamsList = {
     addParking: undefined;
 }
 
+export type AuthStackParamsList = {
+    login: undefined;
+    register: undefined
+}
+
 export type ParkingsTabParamsList = {
     parkings: undefined;
     favorites: undefined;
@@ -29,10 +34,11 @@ export type ParkingsDrawerParamsList = {
 
 
 export type ParkingsStackNavProps<T extends keyof ParkingsStackParamsList> = StackScreenProps<ParkingsStackParamsList, T>
+export type AuthStackNavProps<T extends keyof AuthStackParamsList> = StackScreenProps<AuthStackParamsList, T>
 export type ParkingsTabNavProps<T extends keyof ParkingsTabParamsList> = BottomTabScreenProps<ParkingsTabParamsList, T>
 export type ParkingsDrawerNavProps<T extends keyof ParkingsDrawerParamsList> = DrawerScreenProps<ParkingsDrawerParamsList, T>
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends ParkingsStackParamsList, ParkingsTabParamsList, ParkingsDrawerParamsList {}
+        interface RootParamList extends ParkingsStackParamsList, AuthStackParamsList, ParkingsTabParamsList, ParkingsDrawerParamsList {}
     }
 }

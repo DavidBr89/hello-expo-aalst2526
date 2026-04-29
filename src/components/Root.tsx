@@ -15,6 +15,7 @@ import { persistor, store } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { useTanStackQueryDevTools } from "@rozenite/tanstack-query-plugin";
 import { useReactNavigationDevTools } from "@rozenite/react-navigation-plugin";
+import AuthStackNavigator from "../navigators/AuthStackNavigator";
 
 const queryClient = new QueryClient();
 
@@ -48,7 +49,7 @@ const Root = () => {
           <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
               <NavigationContainer ref={navigationRef}>
-                <ParkingsTabNavigator />
+                <AuthStackNavigator />
               </NavigationContainer>
             </FavoritesProvider>
           </QueryClientProvider>
