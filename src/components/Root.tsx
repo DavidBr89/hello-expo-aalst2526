@@ -41,7 +41,7 @@ const Root = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(user !== null);
       setIsAuthLoading(false);
-      console.log("USER onAuthStateChanged ", user);
+      // console.log("USER onAuthStateChanged ", user);
     });
 
     return unsubscribe;

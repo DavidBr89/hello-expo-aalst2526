@@ -18,6 +18,7 @@ export type AuthStackParamsList = {
 
 export type ParkingsTabParamsList = {
     parkings: undefined;
+    firestoreParkings: undefined;
     favorites: undefined;
     parkingsMap: undefined;
     parkingsSettings: undefined

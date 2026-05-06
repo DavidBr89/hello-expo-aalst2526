@@ -10,6 +10,7 @@ import Feather from "@expo/vector-icons/Feather";
 import ParkingsDrawerNavigator from "./ParkingsDrawerNavigator";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import FirestoreParkings from "../screens/FirestoreParkings";
 
 const languages = {
   nl: {
@@ -50,6 +51,17 @@ const ParkingsTabNavigator = () => {
             ),
           }}
           component={ParkingStackNavigator}
+        />
+        <ParkingsTab.Screen
+          name="firestoreParkings"
+          options={{
+            title: "Firestore",
+            headerShown: true,
+            tabBarIcon: ({ color, size }) => (
+              <Feather name="list" color={color} size={size} />
+            ),
+          }}
+          component={FirestoreParkings}
         />
         <ParkingsTab.Screen
           name="parkingsMap"

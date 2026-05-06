@@ -18,6 +18,14 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 
 import Axios from "axios";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
+import { db } from "../config/firebase";
 
 const types = [
   { id: 1, label: "Ondergronds", value: "underground" },
@@ -33,23 +41,23 @@ interface NewParking {
   isUnderground: boolean;
   electricPlaces: number;
   parkingType: string;
-  email: string;
-  password: string;
+  // email: string;
+  // password: string;
 }
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Naam is verplicht").max(20),
-  email: Yup.string()
-    .required("Email is verplicht")
-    .email("Geen geldig emailadres"),
+  // email: Yup.string()
+  //   .required("Email is verplicht")
+  //   .email("Geen geldig emailadres"),
   capacity: Yup.number()
     .required("Capaciteit is verplicht")
     .positive("Mag niet negatief zijn")
     .max(999, "Moet onder 999 zijn"),
   isUnderground: Yup.boolean().required(),
-  password: Yup.string()
-    .min(8, "Minstens 8 karakters")
-    .required("Wachtwoord is verplicht"),
+  // password: Yup.string()
+  //   .min(8, "Minstens 8 karakters")
+  //   .required("Wachtwoord is verplicht"),
 });
 
 const AddParkingScreen = () => {
@@ -76,17 +84,41 @@ const AddParkingScreen = () => {
   } = useFormik({
     initialValues: {
       name: "",
-      email: "",
+      // email: "",
       capacity: 0,
       isUnderground: false,
       electricPlaces: 10,
       parkingType: types[1].value,
-      password: "",
+      // password: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
-      mutate(values);
+    onSubmit: async (values) => {
+      // console.log(values);
+      // mutate(values);
       // POST request
+
+      // Via Firestore - setDoc methode
+      try {
+        const newDoc = doc(db, "parkings", values.name.toLowerCase().trim());
+        await setDoc(
+          newDoc,
+          {
+            ...values,
+            capacity: +values.capacity,
+            timestamp: serverTimestamp(),
+          },
+          { merge: true },
+        );
+      } catch (error) {
+        console.log(error);
+      }
+
+      // Via Firestore - addDoc methode
+      // try {
+      //   const collectionRef = collection(db, "parkings");
+      //   await addDoc(collectionRef, values);
+      // } catch (error) {
+      //   console.log(error);
+      // }
     },
     validationSchema: validationSchema,
   });
@@ -129,7 +161,7 @@ const AddParkingScreen = () => {
           <BasicText className="text-red-600">{errors.name}</BasicText>
         )}
 
-        <BasicText>Email</BasicText>
+        {/* <BasicText>Email</BasicText>
         <TextInput
           className="border rounded-lg px-4 py-2"
           returnKeyType="next"
@@ -149,7 +181,7 @@ const AddParkingScreen = () => {
         />
         {errors.email && (
           <BasicText className="text-red-600">{errors.email}</BasicText>
-        )}
+        )} */}
         <BasicText>Capaciteit</BasicText>
         <TextInput
           ref={capacityRef}
@@ -197,7 +229,7 @@ const AddParkingScreen = () => {
           })}
         </Picker>
 
-        <BasicText>Wachtwoord</BasicText>
+        {/* <BasicText>Wachtwoord</BasicText>
         <TextInput
           className="border rounded-lg px-4 py-2"
           returnKeyType="done"
@@ -213,7 +245,7 @@ const AddParkingScreen = () => {
 
         {errors.password && (
           <BasicText className="text-red-600">{errors.password}</BasicText>
-        )}
+        )} */}
 
         <TouchableOpacity
           onPress={() => {
