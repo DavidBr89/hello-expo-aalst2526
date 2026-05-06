@@ -6,6 +6,8 @@ import BasicView from "../components/BasicView";
 import { signOut } from "@firebase/auth";
 import { auth } from "../config/firebase";
 
+import * as Notifications from "expo-notifications";
+
 const ParkingsSettingsScreen = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
@@ -23,6 +25,23 @@ const ParkingsSettingsScreen = () => {
           onValueChange={() => toggleColorScheme()}
         />
       </BasicView>
+
+      <TouchableOpacity
+        onPress={() => {
+          Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Parking bijna verlopen",
+              body: "Parking loopt nu bijna af",
+            },
+            trigger: {
+              seconds: 20,
+              type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+            },
+          });
+        }}>
+        <BasicText>Parking voor 20s</BasicText>
+      </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => {
           signOut(auth);

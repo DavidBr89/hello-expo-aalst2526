@@ -18,14 +18,27 @@ import { useReactNavigationDevTools } from "@rozenite/react-navigation-plugin";
 import AuthStackNavigator from "../navigators/AuthStackNavigator";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "@firebase/auth";
+import * as Notifications from "expo-notifications";
 
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: true,
+    shouldShowAlert: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
+
 const Root = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  Notifications.requestPermissionsAsync();
 
   useTanStackQueryDevTools(queryClient);
 

@@ -4,9 +4,11 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  orderBy,
   query,
   Timestamp,
   Unsubscribe,
+  where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import BasicText from "../components/BasicText";
@@ -35,7 +37,11 @@ const FirestoreParkings = () => {
 
     (async () => {
       try {
-        const q = query(collection(db, "parkings"));
+        const q = query(
+          collection(db, "parkings"),
+          where("capacity", ">", 50),
+          orderBy("name", "asc"),
+        );
 
         // Eénmalig data opvragen
         // const qs = await getDocs(q);

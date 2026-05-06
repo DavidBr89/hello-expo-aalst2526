@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hello-expo",
-    "slug": "hello-expo",
+    "name": "hello-expo-aalst",
+    "slug": "hello-expo-aalst",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -13,7 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.davidbr89.helloexpoaalst",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +25,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.davidbr89.helloexpoaalst"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -29,6 +34,12 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "4bad012e-c5bf-489d-bafd-0070169589a6"
+      }
+    },
+    "owner": "davidbr89"
   }
 }
